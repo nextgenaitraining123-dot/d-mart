@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMart Fresh | Everyday Shopping</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">Fresh deals every day <span>•</span> Great value for your family</div>
+  <header class="site-header">
+    <a class="brand" href="#"><span class="brand-mark">D</span><span><strong>DMart</strong><small>FRESH & VALUE</small></span></a>
+    <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search for rice, snacks, noodles..."><button id="searchBtn">Search</button></div>
+    <button class="cart-button" id="cartToggle" aria-label="Open cart">🛒 <span>Cart</span> <b id="cartCount">0</b></button>
+  </header>
+  <nav class="nav">
+    <a href="#products" data-category="All">All products</a><a href="#products" data-category="Grocery">Grocery</a><a href="#products" data-category="Food">Food & snacks</a><a href="#products" data-category="Chinese">Chinese items</a><a href="#deals">Today's deals</a>
+  </nav>
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><span class="eyebrow">YOUR EVERYDAY STORE</span><h1>Fresh choices.<br><em>Better value.</em></h1><p>Stock up on kitchen essentials, tasty treats and your favourite Chinese cooking staples—all in one place.</p><a class="primary-btn" href="#products">Shop essentials <span>→</span></a><div class="hero-perks"><span>✓ Quality picks</span><span>✓ Great prices</span><span>✓ Easy shopping</span></div></div>
+      <div class="hero-art"><div class="circle circle-back"></div><div class="hero-emoji">🥬</div><div class="floating-card"><span>🌱</span><div><b>Fresh every day</b><small>Goodness for your home</small></div></div><div class="discount-bubble">SMART<br><b>SAVINGS</b></div></div>
+    </section>
+    <section class="category-strip" aria-label="Shop categories">
+      <button class="category-tile active" data-category="All"><span>🛍️</span><b>All items</b><small>Shop everything</small></button>
+      <button class="category-tile" data-category="Grocery"><span>🌾</span><b>Grocery</b><small>Daily essentials</small></button>
+      <button class="category-tile" data-category="Food"><span>🍪</span><b>Food & snacks</b><small>Treat yourself</small></button>
+      <button class="category-tile" data-category="Chinese"><span>🍜</span><b>Chinese items</b><small>Cook something fun</small></button>
+    </section>
+    <section class="section-head" id="products"><div><span class="eyebrow">HANDPICKED FOR YOU</span><h2>Popular picks</h2><p>Everyday favourites for your pantry and plate.</p></div><div class="filters"><button class="filter active" data-category="All">All</button><button class="filter" data-category="Grocery">Grocery</button><button class="filter" data-category="Food">Food</button><button class="filter" data-category="Chinese">Chinese</button></div></section>
+    <div class="product-grid" id="productGrid"></div>
+    <section class="deal-banner" id="deals"><div><span class="eyebrow">A LITTLE EXTRA VALUE</span><h2>Good food. Good mood. <em>Great value.</em></h2><p>Make your everyday shopping feel a little brighter.</p></div><div class="deal-art">🥦 <span>🍊</span> 🥑</div><a href="#products" class="deal-link">Explore products →</a></section>
+    <section class="benefits"><div><span>🚚</span><b>Convenient shopping</b><small>Your essentials, all together</small></div><div><span>🌿</span><b>Everyday freshness</b><small>Thoughtful pantry picks</small></div><div><span>💚</span><b>Value you’ll love</b><small>Shop smart, eat well</small></div></section>
+  </main>
+  <footer><a class="brand" href="#"><span class="brand-mark">D</span><span><strong>DMart</strong><small>FRESH & VALUE</small></span></a><p>Everyday essentials for every home.</p><small>Demo storefront for learning purposes. Not an official DMart website.</small></footer>
+  <div class="scrim" id="scrim"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true"><div class="cart-head"><div><span class="eyebrow">YOUR BASKET</span><h2>Shopping cart</h2></div><button id="closeCart" class="icon-btn" aria-label="Close cart">✕</button></div><div id="cartItems" class="cart-items"></div><div class="cart-bottom"><div class="subtotal"><span>Subtotal</span><b id="cartTotal">₹0</b></div><p>Delivery and taxes calculated at checkout.</p><button id="checkoutBtn" class="checkout-btn">Continue to checkout →</button><small id="checkoutMessage"></small></div></aside>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    const products = [
+      {id:1,name:"Premium Basmati Rice",category:"Grocery",price:149,old:179,unit:"1 kg",emoji:"🍚",tone:"rice",tag:"Bestseller"},
+      {id:2,name:"Whole Wheat Atta",category:"Grocery",price:235,old:259,unit:"5 kg",emoji:"🌾",tone:"atta",tag:"Daily essential"},
+      {id:3,name:"Sunflower Cooking Oil",category:"Grocery",price:129,old:149,unit:"1 L",emoji:"🫙",tone:"oil",tag:"Save ₹20"},
+      {id:4,name:"Crunchy Potato Chips",category:"Food",price:20,old:25,unit:"Pack",emoji:"🥔",tone:"chips",tag:"Popular"},
+      {id:5,name:"Chocolate Cookies",category:"Food",price:45,old:55,unit:"200 g",emoji:"🍪",tone:"cookies",tag:"Sweet treat"},
+      {id:6,name:"Mixed Fruit Juice",category:"Food",price:60,old:70,unit:"1 L",emoji:"🧃",tone:"juice",tag:"Refreshing"},
+      {id:7,name:"Instant Hakka Noodles",category:"Chinese",price:55,old:65,unit:"Pack of 2",emoji:"🍜",tone:"noodles",tag:"Quick meal"},
+      {id:8,name:"Soy Sauce",category:"Chinese",price:75,old:89,unit:"200 ml",emoji:"🍶",tone:"soy",tag:"Kitchen pick"},
+      {id:9,name:"Chilli Garlic Sauce",category:"Chinese",price:85,old:99,unit:"200 g",emoji:"🌶️",tone:"sauce",tag:"Spicy favourite"},
+      {id:10,name:"Fresh Green Peas",category:"Grocery",price:48,old:60,unit:"500 g",emoji:"🫛",tone:"peas",tag:"Fresh pick"},
+      {id:11,name:"Masala Snack Mix",category:"Food",price:35,old:40,unit:"150 g",emoji:"🥜",tone:"mix",tag:"Tea-time"},
+      {id:12,name:"Chilli Flakes & Herbs",category:"Chinese",price:39,old:49,unit:"Combo",emoji:"🧂",tone:"spice",tag:"Chef's choice"}
+    ];
+    let cart = {};
+    let activeCategory = "All";
+    const money = n => "₹" + n.toLocaleString("en-IN");
+    const grid = document.getElementById("productGrid");
+    function renderProducts(){
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+      const shown = products.filter(p => (activeCategory==="All" || p.category===activeCategory) && (p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q)));
+      grid.innerHTML = shown.length ? shown.map(p=>`<article class="product-card"><div class="product-visual ${p.tone}"><span class="product-tag">${p.tag}</span><span class="product-emoji" aria-hidden="true">${p.emoji}</span><span class="visual-caption">${p.category==="Chinese"?"ASIAN PANTRY":p.category==="Food"?"TASTY FAVOURITES":"PANTRY ESSENTIAL"}</span></div><div class="product-info"><span class="product-category">${p.category} · ${p.unit}</span><h3>${p.name}</h3><div class="price-row"><div><b>${money(p.price)}</b> <del>${money(p.old)}</del></div><button class="add-btn" data-add="${p.id}" aria-label="Add ${p.name} to cart">＋ Add</button></div></div></article>`).join("") : `<div class="empty-state"><span>🔎</span><h3>No items found</h3><p>Try another search or category.</p></div>`;
+    }
+    function renderCart(){
+      const entries = products.filter(p=>cart[p.id]);
+      document.getElementById("cartCount").textContent = entries.reduce((s,p)=>s+cart[p.id],0);
+      document.getElementById("cartTotal").textContent = money(entries.reduce((s,p)=>s+p.price*cart[p.id],0));
+      document.getElementById("cartItems").innerHTML = entries.length ? entries.map(p=>`<div class="cart-item"><div class="cart-thumb">${p.emoji}</div><div class="cart-item-info"><b>${p.name}</b><small>${money(p.price)} · ${p.unit}</small><div class="qty-controls"><button data-qty="${p.id}" data-change="-1" aria-label="Decrease quantity">−</button><span>${cart[p.id]}</span><button data-qty="${p.id}" data-change="1" aria-label="Increase quantity">＋</button></div></div><b class="line-total">${money(p.price*cart[p.id])}</b></div>`).join("") : `<div class="cart-empty"><span>🛒</span><h3>Your cart is waiting</h3><p>Add a few everyday favourites to get started.</p><button class="primary-btn" id="startShopping">Explore products →</button></div>`;
+      document.getElementById("checkoutBtn").disabled = !entries.length;
+    }
+    function setCategory(cat){
+      activeCategory=cat;
+      document.querySelectorAll("[data-category]").forEach(el=>el.classList.toggle("active",el.dataset.category===cat));
+      renderProducts();
+    }
+    function openCart(){document.getElementById("cartDrawer").classList.add("open");document.getElementById("scrim").classList.add("show");document.getElementById("cartDrawer").setAttribute("aria-hidden","false");}
+    function closeCart(){document.getElementById("cartDrawer").classList.remove("open");document.getElementById("scrim").classList.remove("show");document.getElementById("cartDrawer").setAttribute("aria-hidden","true");}
+    let toastTimer;
+    function toast(message){const t=document.getElementById("toast");t.textContent=message;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2200);}
+    document.addEventListener("click",e=>{
+      const cat=e.target.closest("[data-category]"); if(cat){e.preventDefault();setCategory(cat.dataset.category);document.getElementById("products").scrollIntoView({behavior:"smooth"});}
+      const add=e.target.closest("[data-add]"); if(add){const id=Number(add.dataset.add);cart[id]=(cart[id]||0)+1;renderCart();toast("Added to your cart ✓");}
+      const qty=e.target.closest("[data-qty]"); if(qty){const id=Number(qty.dataset.qty);cart[id]+=Number(qty.dataset.change);if(cart[id]<=0)delete cart[id];renderCart();}
+      if(e.target.id==="startShopping"){closeCart();document.getElementById("products").scrollIntoView({behavior:"smooth"});}
+    });
+    document.getElementById("searchInput").addEventListener("input",renderProducts);
+    document.getElementById("searchBtn").addEventListener("click",()=>{renderProducts();document.getElementById("products").scrollIntoView({behavior:"smooth"});});
+    document.getElementById("cartToggle").addEventListener("click",openCart);
+    document.getElementById("closeCart").addEventListener("click",closeCart);
+    document.getElementById("scrim").addEventListener("click",closeCart);
+    document.getElementById("checkoutBtn").addEventListener("click",()=>{document.getElementById("checkoutMessage").textContent="Demo checkout: connect a payment or order system to accept real orders.";});
+    renderProducts();renderCart();
+  </script>
+</body>
+</html>
